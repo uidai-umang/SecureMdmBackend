@@ -1,0 +1,143 @@
+# ============================================
+#  AMAPI POC — Step by Step Setup Guide
+# ============================================
+
+# PRE-REQUISITES
+# --------------
+# - Node.js installed
+# - service-account.json placed in root folder
+# - GCP project 'securemdmpoc' already created
+# - Android Management API enabled on GCP
+
+# ============================================
+#  STEP 1 — Install dependencies
+# ============================================
+
+npm install googleapis express qrcode
+
+# ============================================
+#  STEP 2 — Create the data folder
+# ============================================
+
+mkdir data
+
+# ============================================
+#  STEP 3 — Generate enterprise signup URL
+# ============================================
+
+node scripts/enrollment/generate_signup_url.js
+
+# Copy the URL from output, open it in browser,
+# complete the Google enterprise signup flow.
+# You will get a signupUrlName and enterpriseToken
+# → paste them into scripts/enterprise/create_enterprise.js
+
+# ============================================
+#  STEP 4 — Create the enterprise
+# ============================================
+
+node scripts/enterprise/create_enterprise.js
+
+# → creates data/enterprise.json with your ENTERPRISE_ID
+# → copy the enterprise ID into config/constants.js  (ENTERPRISE_ID)
+
+# ============================================
+#  STEP 5 — Verify enterprise is live
+# ============================================
+
+node scripts/enterprise/check_enterprise.js
+
+# Should print: ✅ Old enterprise is gone  (or confirm new one exists)
+
+# ============================================
+#  STEP 6 — Check quota & enterprise status
+# ============================================
+
+node scripts/enrollment/check_quota.js
+
+# Confirms enterprise is reachable, shows enrolled devices & tokens
+
+# ============================================
+#  STEP 7 — Create kiosk policy
+# ============================================
+
+node scripts/policy/create_policy.js
+
+# Pushes the kiosk policy to AMAPI
+# → camera restricted to gov.uidai.securemdmpoc only
+# → screen capture disabled, navigation disabled
+
+# ============================================
+#  STEP 8 — Generate enrollment token
+# ============================================
+
+node scripts/enrollment/enroll_device.js
+
+# → creates data/enrollment_token.json
+# Token is valid for 7 days (604800s)
+
+# ============================================
+#  STEP 9 — Generate QR code
+# ============================================
+
+node scripts/enrollment/generate_qr.js
+
+# → creates data/enrollment_qr.png
+# Print this or display on screen for device scanning
+
+# ============================================
+#  STEP 10 — Start the backend server
+# ============================================
+
+node server/server.js
+
+# Runs on http://0.0.0.0:3000
+# Endpoints:
+#   GET  /health       → server status
+#   POST /device/checkin → device calls this on boot
+#   GET  /devices      → list all checked-in devices
+
+# ============================================
+#  STEP 11 — Enroll a device
+# ============================================
+
+# On the Android device:
+#   1. Factory reset the device
+#   2. On the welcome screen, tap 6 times quickly
+#   3. Connect to WiFi
+#   4. Scan data/enrollment_qr.png
+#   5. Wait 2-3 minutes for policy to apply
+
+# ============================================
+#  STEP 12 — Monitor enrolled devices
+# ============================================
+
+node scripts/monitor/monitor.js
+
+# Shows:
+#   - Policy status and version
+#   - All enrolled devices with compliance status
+#   - QR token validity
+
+# ============================================
+#  RE-ENROLLMENT (if token expires after 7 days)
+# ============================================
+
+node scripts/enrollment/enroll_device.js   # new token
+node scripts/enrollment/generate_qr.js     # new QR
+
+# ============================================
+#  CLEANUP / RESET (only if starting over)
+# ============================================
+
+node scripts/enrollment/delete_token.js    # delete old tokens
+node scripts/enterprise/delete_enterprise.js  # delete old enterprise
+# then restart from STEP 3
+
+# ============================================
+#  .gitignore — add these entries
+# ============================================
+
+# service-account.json
+# data/
+# node_modules/

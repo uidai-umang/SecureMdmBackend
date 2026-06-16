@@ -1,0 +1,96 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Start All Servers",
+      "type": "shell",
+      "command": "npm run start",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
+      "label": "📦 Deploy APK to Server",
+      "type": "shell",
+      "command": "npm run deploy-apk",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
+      "label": "🔄 Push OTA Update",
+      "type": "shell",
+      "command": "npm run push-update",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "⚙️ Push Policy",
+      "type": "shell",
+      "command": "npm run push-policy",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "🔓 Restore All Devices",
+      "type": "shell",
+      "command": "npm run restore",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
+      "label": "📱 ADB Device Setup",
+      "type": "shell",
+      "command": "npm run adb-setup",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
+      "label": "📷 Generate QR",
+      "type": "shell",
+      "command": "npm run qr",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "📋 View Devices",
+      "type": "shell",
+      "command": "npm run devices",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "❌ View Errors",
+      "type": "shell",
+      "command": "npm run errors",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "✅ View Update History",
+      "type": "shell",
+      "command": "npm run updates",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "🔐 Release Device Admin",
+      "type": "shell",
+      "command": "npm run release-admin",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
+      "label": "📡 Serve APK (QR Provisioning)",
+      "type": "shell",
+      "command": "npm run serve-apk",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
+      "label": "🗑️ Clear All Logs",
+      "type": "shell",
+      "command": "npm run clear-logs",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    }
+  ]
+}
