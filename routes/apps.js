@@ -6,15 +6,12 @@ const {
   reportApps, getAppsReport
 } = require('../controllers/apps.controller');
 
-// Must be before /:deviceId routes
 router.post('/all/hide-apps', hideAppsAll);
 router.post('/all/unhide-apps', unhideAppsAll);
-
 router.post('/:deviceId/hide-apps', hideAppsDevice);
 router.post('/:deviceId/unhide-apps', unhideAppsDevice);
 router.post('/:deviceId/hide-app/:packageName', hideApp);
 router.post('/:deviceId/unhide-app/:packageName', unhideApp);
-
 router.post('/apps/report', reportApps);
 router.get('/apps/report', getAppsReport);
 
