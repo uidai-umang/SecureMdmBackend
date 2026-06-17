@@ -10,5 +10,10 @@ router.delete('/device/errors/clear', clearErrors);
 router.delete('/devices/clear', clearDevices);
 router.delete('/device/update/success/clear', clearUpdateSuccess);
 router.delete('/logs/clear', clearAll);
+router.get('/device/fcm/confirms', (req, res) => {
+  const { load, FILES } = require('../services/storage.service');
+  const records = load(FILES.fcmConfirm);
+  res.json({ total: records.length, records });
+});
 
 module.exports = router;

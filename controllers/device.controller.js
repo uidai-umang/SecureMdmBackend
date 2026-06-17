@@ -66,4 +66,47 @@ function getLatestDevice(deviceName) {
     .sort((a, b) => new Date(b.lastSeen) - new Date(a.lastSeen))[0];
 }
 
+function updateToken(req, res) {
+  const { model, manufacturer, fcmToken } = req.body;
+
+  if (!fcmToken) return res.status(400).json({ error: 'fcmToken required' });
+
+  const fullModel = `${manufacturer} ${model}`;
+  const devices = load(FILES.devices);
+
+  const existingIndex = devices.findIndex(d => d.model === fullModel);
+
+  if (existingIndex >= 0) {
+    devices[existingIndex].fcmToken = fcmToken;
+    devices[existingIndex].lastSeen = new Date().toISOString();
+    save(FILES.devices, devices);
+    console.log(`\nFCM token updated — ${fullModel}: ${fcmToken.substring(0, 20)}...`);
+    res.json({ status: 'ok', message: 'Token updated' });
+  } else {
+    res.status(404).json({ error: `Device not found: ${fullModel}` });
+  }
+}
+
+function confirmFcm(req, res) {
+  const { model, manufacturer, action, receivedAt, status } = req.body;
+
+  const fullModel = `${manufacturer} ${model}`;
+
+  console.log(`\n📬 FCM Confirmed`);
+  console.log(`Model   : ${fullModel}`);
+  console.log(`Action  : ${action}`);
+  console.log(`Status  : ${status}`);
+  console.log(`Time    : ${new Date(receivedAt).toLocaleString()}`);
+  console.log('─────────────────────────────────────');
+
+  append(FILES.fcmConfirm, {
+    model: fullModel,
+    action,
+    status,
+    receivedAt: new Date(receivedAt).toISOString()
+  });
+
+  res.json({ status: 'ok' });
+}
+
 module.exports = { checkIn, getDevices, getLatestDevice };

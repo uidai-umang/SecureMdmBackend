@@ -11,7 +11,8 @@ const FILES = {
   devices:       path.join(DATA_DIR, 'devices.json'),
   errors:        path.join(DATA_DIR, 'errors.json'),
   updateSuccess: path.join(DATA_DIR, 'update_success.json'),
-  appsReport:    path.join(DATA_DIR, 'apps_report.json')
+  appsReport:    path.join(DATA_DIR, 'apps_report.json'),
+  fcmConfirm:    path.join(DATA_DIR, 'fcm_confirm.json')
 };
 
 function load(file) {
