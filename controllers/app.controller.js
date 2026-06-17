@@ -1,0 +1,82 @@
+const { sendToAll, sendToDevice } = require('../services/fcm.service');
+const { FILES, load, append } = require('../services/storage.service');
+
+async function hideAppsAll(req, res) {
+  const response = await sendToAll({ action: 'HIDE_APPS' });
+  console.log('\nHIDE_APPS sent to all devices');
+  res.json({ status: 'ok', fcmResponse: response });
+}
+
+async function unhideAppsAll(req, res) {
+  const response = await sendToAll({ action: 'UNHIDE_APPS' });
+  console.log('\nUNHIDE_APPS sent to all devices');
+  res.json({ status: 'ok', fcmResponse: response });
+}
+
+async function hideAppsDevice(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const response = await sendToDevice(deviceName, { action: 'HIDE_APPS' });
+  console.log(`\nHIDE_APPS sent to ${deviceName}`);
+  res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
+}
+
+async function unhideAppsDevice(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const response = await sendToDevice(deviceName, { action: 'UNHIDE_APPS' });
+  console.log(`\nUNHIDE_APPS sent to ${deviceName}`);
+  res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
+}
+
+async function hideApp(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const targetPackage = decodeURIComponent(req.params.packageName);
+  const response = await sendToDevice(deviceName, {
+    action: 'HIDE_APP',
+    packageName: targetPackage
+  });
+  console.log(`\nHIDE_APP ${targetPackage} sent to ${deviceName}`);
+  res.json({ status: 'sent', deviceId: deviceName, packageName: targetPackage, fcmResponse: response });
+}
+
+async function unhideApp(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const targetPackage = decodeURIComponent(req.params.packageName);
+  const response = await sendToDevice(deviceName, {
+    action: 'UNHIDE_APP',
+    packageName: targetPackage
+  });
+  console.log(`\nUNHIDE_APP ${targetPackage} sent to ${deviceName}`);
+  res.json({ status: 'sent', deviceId: deviceName, packageName: targetPackage, fcmResponse: response });
+}
+
+function reportApps(req, res) {
+  const { packageName, model, action, packages, timestamp } = req.body;
+
+  console.log(`\n📱 App ${action} Report`);
+  console.log(`Model   : ${model}`);
+  console.log(`Action  : ${action}`);
+  console.log(`Count   : ${packages.length}`);
+  console.log(`Packages: ${packages.join(', ')}`);
+  console.log(`Time    : ${new Date(timestamp).toLocaleString()}`);
+  console.log('─────────────────────────────────────');
+
+  append(FILES.appsReport, {
+    model, packageName, action, packages,
+    count: packages.length,
+    timestamp: new Date(timestamp).toISOString()
+  });
+
+  res.json({ status: 'ok' });
+}
+
+function getAppsReport(req, res) {
+  const reports = load(FILES.appsReport);
+  res.json({ total: reports.length, reports });
+}
+
+module.exports = {
+  hideAppsAll, unhideAppsAll,
+  hideAppsDevice, unhideAppsDevice,
+  hideApp, unhideApp,
+  reportApps, getAppsReport
+};
