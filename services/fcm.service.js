@@ -17,26 +17,49 @@ function getMessaging() {
   return admin.messaging();
 }
 
+function logFcmSent(target, data, messageId) {
+  console.log('\n📤 FCM Sent');
+  console.log('Target  :', target);
+  console.log('Action  :', data.action);
+  if (data.targetDevice) console.log('Device  :', data.targetDevice);
+  if (data.packageName) console.log('Package :', data.packageName);
+  console.log('MsgID   :', messageId);
+  console.log('Time    :', new Date().toLocaleString());
+  console.log('─────────────────────────────────────');
+}
+
 async function sendToAll(data) {
   const response = await getMessaging().send({
     topic: 'all-devices',
-    data
+    data,
+    android: {
+      priority: 'high'
+    }
   });
-  console.log('FCM sent to all-devices:', response);
+  logFcmSent('topic:all-devices', data, response);
   return response;
 }
 
 async function sendToDevice(deviceName, data) {
   const response = await getMessaging().send({
     topic: 'all-devices',
-    data: { ...data, targetDevice: deviceName }
+    data: { ...data, targetDevice: deviceName },
+    android: {
+      priority: 'high'
+    }
   });
-  console.log(`FCM sent to ${deviceName}:`, response);
+  logFcmSent(`device:${deviceName}`, { ...data, targetDevice: deviceName }, response);
   return response;
 }
 
 async function sendToToken(token, data) {
-  return getMessaging().send({ token, data });
+  const response = await getMessaging().send({
+    token,
+    data,
+    android: { priority: 'high' }
+  });
+  logFcmSent(`token:${token.substring(0, 20)}...`, data, response);
+  return response;
 }
 
 module.exports = { initFirebase, sendToAll, sendToDevice, sendToToken };

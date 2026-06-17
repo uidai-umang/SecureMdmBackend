@@ -21,9 +21,19 @@ function checkIn(req, res) {
 
   const devices = load(FILES.devices);
 
+  // 1. Match by serialNumber — most reliable hardware ID
   let existingIndex = devices.findIndex(d =>
-    fcmToken && d.fcmToken === fcmToken
+    serialNumber && d.serialNumber && d.serialNumber === serialNumber
   );
+
+  // 2. Match by fcmToken — reliable until token rotates
+  if (existingIndex === -1) {
+    existingIndex = devices.findIndex(d =>
+      fcmToken && d.fcmToken && d.fcmToken === fcmToken
+    );
+  }
+
+  // 3. Match by model — last resort
   if (existingIndex === -1) {
     existingIndex = devices.findIndex(d => d.model === fullModel);
   }

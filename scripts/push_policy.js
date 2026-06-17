@@ -8,7 +8,7 @@ const { LOCAL_IP } = require('../config/constants');
 
 const POLICIES = {
   screenshotEnabled : null,   // true = allowed, false = blocked
-  kioskEnabled      : true,   // true = kiosk on, false = kiosk off
+  kioskEnabled      : false,   // true = kiosk on, false = kiosk off
   cameraEnabled     : null,  // true = allowed, false = blocked
 };
 
