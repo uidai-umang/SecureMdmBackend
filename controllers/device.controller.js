@@ -1,4 +1,4 @@
-const { FILES, load, save } = require('../services/storage.service');
+const { FILES, load, save, append } = require('../services/storage.service');
 const { ENTERPRISE_ID, POLICY_NAME } = require('../config/constants');
 
 function checkIn(req, res) {
@@ -109,4 +109,4 @@ function confirmFcm(req, res) {
   res.json({ status: 'ok' });
 }
 
-module.exports = { checkIn, getDevices, getLatestDevice };
+module.exports = { checkIn, getDevices, getLatestDevice, updateToken, confirmFcm };
