@@ -24,6 +24,8 @@
     "errors":         "curl http://localhost:3000/device/errors | json_pp",
     "updates":        "curl http://localhost:3000/device/update/success | json_pp",
     "app-reports":    "curl http://localhost:3000/device/apps/report | json_pp",
-    "clear-logs":     "curl -s -X DELETE http://localhost:3000/logs/clear | json_pp"
+    "clear-logs":     "curl -s -X DELETE http://localhost:3000/logs/clear | json_pp",
+    "python-serve-apk" : "python3 -m http.server 8080 --directory /Users/macuser/Desktop/SecureMdmPocApk",
+    "push-update-device" : "node scripts/push_update_device.js"
   }
 }

@@ -4,7 +4,8 @@ const { ENTERPRISE_ID, POLICY_NAME } = require('../config/constants');
 function checkIn(req, res) {
   const {
     packageName, model, manufacturer, androidVersion,
-    kioskActive, isDeviceOwner, timestamp, fcmToken
+    kioskActive, isDeviceOwner, timestamp, fcmToken,
+    serialNumber
   } = req.body;
 
   const fullModel = `${manufacturer} ${model}`;
@@ -14,6 +15,7 @@ function checkIn(req, res) {
   console.log('Android     :', androidVersion);
   console.log('Package     :', packageName);
   console.log('Kiosk Active:', kioskActive);
+  console.log('Serial Number:', serialNumber);
   console.log('Device Owner:', isDeviceOwner);
   console.log('FCM Token   :', fcmToken ? fcmToken.substring(0, 20) + '...' : 'none');
   console.log('Time        :', new Date(timestamp).toLocaleString());

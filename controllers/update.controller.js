@@ -31,4 +31,12 @@ function getSuccessReports(req, res) {
   res.json({ total: records.length, records });
 }
 
-module.exports = { triggerUpdate, reportSuccess, getSuccessReports };
+async function triggerUpdateDevice(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const { sendToDevice } = require('../services/fcm.service');
+  const response = await sendToDevice(deviceName, { action: 'CHECK_UPDATE' });
+  console.log(`\nUpdate check triggered on ${deviceName}`);
+  res.json({ status: 'ok', deviceId: deviceName, fcmResponse: response });
+}
+
+module.exports = { triggerUpdate, triggerUpdateDevice, reportSuccess, getSuccessReports };
