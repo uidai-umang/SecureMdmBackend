@@ -74,9 +74,28 @@ function getAppsReport(req, res) {
   res.json({ total: reports.length, reports });
 }
 
+async function debugCheckPermission(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const { packageName, permission } = req.body;
+
+  if (!packageName) {
+    return res.status(400).json({ error: 'packageName required' });
+  }
+
+  const response = await sendToDevice(deviceName, {
+    action: 'DEBUG_CHECK_PERMISSION',
+    packageName,
+    permission: permission || 'android.permission.ACCESS_FINE_LOCATION'
+  });
+
+  console.log(`\nDEBUG_CHECK_PERMISSION sent to ${deviceName} for ${packageName}`);
+  res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
+}
+
 module.exports = {
   hideAppsAll, unhideAppsAll,
   hideAppsDevice, unhideAppsDevice,
   hideApp, unhideApp,
-  reportApps, getAppsReport
+  reportApps, getAppsReport,
+  debugCheckPermission
 };

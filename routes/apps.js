@@ -3,7 +3,8 @@ const {
   hideAppsAll, unhideAppsAll,
   hideAppsDevice, unhideAppsDevice,
   hideApp, unhideApp,
-  reportApps, getAppsReport
+  reportApps, getAppsReport,
+  debugCheckPermission
 } = require('../controllers/apps.controller');
 
 router.post('/all/hide-apps', hideAppsAll);
@@ -14,5 +15,6 @@ router.post('/:deviceId/hide-app/:packageName', hideApp);
 router.post('/:deviceId/unhide-app/:packageName', unhideApp);
 router.post('/apps/report', reportApps);
 router.get('/apps/report', getAppsReport);
+router.post('/:deviceId/debug/check-permission', debugCheckPermission);
 
 module.exports = router;
