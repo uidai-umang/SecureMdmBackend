@@ -92,6 +92,12 @@ async function debugCheckPermission(req, res) {
   res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
 }
 
+async function debugCheckRestrictions(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const response = await sendToDevice(deviceName, { action: 'DEBUG_CHECK_RESTRICTIONS' });
+  res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
+}
+
 async function blockBluetoothAll(req, res) {
   const response = await sendToAll({ action: 'BLOCK_BLUETOOTH' });
   console.log('\nBLOCK_BLUETOOTH sent to all devices');
@@ -126,5 +132,6 @@ module.exports = {
   reportApps, getAppsReport,
   debugCheckPermission,
   blockBluetoothAll, unBlockBluetoothAll,
-  blockBluetoothDevice, unBlockBluetoothDevice
+  blockBluetoothDevice, unBlockBluetoothDevice,
+  debugCheckRestrictions
 };

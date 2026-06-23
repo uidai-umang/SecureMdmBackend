@@ -5,7 +5,7 @@ const {
   hideApp, unhideApp,
   reportApps, getAppsReport,
   debugCheckPermission, blockBluetoothAll, unBlockBluetoothAll,
-  blockBluetoothDevice, unBlockBluetoothDevice
+  blockBluetoothDevice, unBlockBluetoothDevice, debugCheckRestrictions
 } = require('../controllers/apps.controller');
 
 router.post('/all/hide-apps', hideAppsAll);
@@ -21,5 +21,6 @@ router.post('/all/block-bluetooth', blockBluetoothAll);
 router.post('/all/unblock-bluetooth', unBlockBluetoothAll);
 router.post('/:deviceId/block-bluetooth', blockBluetoothDevice);
 router.post('/:deviceId/unblock-bluetooth', unBlockBluetoothDevice);
+router.post('/:deviceId/debug/check-restrictions', debugCheckRestrictions);
 
 module.exports = router;
