@@ -92,10 +92,39 @@ async function debugCheckPermission(req, res) {
   res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
 }
 
+async function blockBluetoothAll(req, res) {
+  const response = await sendToAll({ action: 'BLOCK_BLUETOOTH' });
+  console.log('\nBLOCK_BLUETOOTH sent to all devices');
+  res.json({ status: 'ok', fcmResponse: response });
+}
+
+async function unBlockBluetoothAll(req, res) {
+  const response = await sendToAll({ action: 'UNBLOCK_BLUETOOTH' });
+  console.log('\nUNBLOCK_BLUETOOTH sent to all devices');
+  res.json({ status: 'ok', fcmResponse: response });
+}
+
+async function blockBluetoothDevice(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const response = await sendToDevice(deviceName, { action: 'BLOCK_BLUETOOTH' });
+  console.log(`\nBLOCK_BLUETOOTH sent to ${deviceName}`);
+  res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
+}
+
+async function unBlockBluetoothDevice(req, res) {
+  const deviceName = decodeURIComponent(req.params.deviceId);
+  const response = await sendToDevice(deviceName, { action: 'UNBLOCK_BLUETOOTH' });
+  console.log(`\nUNBLOCK_BLUETOOTH sent to ${deviceName}`);
+  res.json({ status: 'sent', deviceId: deviceName, fcmResponse: response });
+}
+
+
 module.exports = {
   hideAppsAll, unhideAppsAll,
   hideAppsDevice, unhideAppsDevice,
   hideApp, unhideApp,
   reportApps, getAppsReport,
-  debugCheckPermission
+  debugCheckPermission,
+  blockBluetoothAll, unBlockBluetoothAll,
+  blockBluetoothDevice, unBlockBluetoothDevice
 };
