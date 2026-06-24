@@ -4,7 +4,7 @@ let initialized = false;
 
 function initFirebase() {
   if (initialized) return;
-  const serviceAccount = require('../firebase-service-account.json');
+  const serviceAccount = require('../service_accounts/firebase-service-account.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
   });

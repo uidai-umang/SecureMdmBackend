@@ -11,8 +11,8 @@ const PORT = 4000;
 
 // ── Config ───────────────────────────────────────────────
 
-const APKSIGNER_PATH = '/Users/macuser/Library/Android/sdk/build-tools/36.0.0/apksigner';
-const AAPT_PATH = '/Users/macuser/Library/Android/sdk/build-tools/36.0.0/aapt';
+const APKSIGNER_PATH = '/Users/macuser/Library/Android/sdk/build-tools/36.1.0/apksigner';
+const AAPT_PATH = '/Users/macuser/Library/Android/sdk/build-tools/36.1.0/aapt';
 const APK_SERVE_DIR = '/Users/macuser/Desktop/SecureMdmPocApk';
 const APK_FILE = path.join(APK_SERVE_DIR, 'app-release.apk');
 const META_FILE = path.join(APK_SERVE_DIR, 'update-meta.json');
