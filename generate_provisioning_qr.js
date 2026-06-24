@@ -5,7 +5,7 @@ const APK_URL = `http://${LOCAL_IP}:8080/app-release.apk`;
 
 const provisioningData = {
   "android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME":
-    "gov.uidai.securemdmpoc/.MyDeviceAdminReceiver",
+    "gov.uidai.securemdmpoc/.receivers.MyDeviceAdminReceiver",
 
   "android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION":
     APK_URL,
@@ -35,7 +35,7 @@ async function main() {
   console.log('APK URL   :', APK_URL);
   console.log('Checksum  :', EXPECTED_CHECKSUM);
   console.log('WiFi      : Airtel-MyWiFi-PQR-C100-C38E');
-  console.log('Component : gov.uidai.securemdmpoc/.MyDeviceAdminReceiver');
+  console.log('Component : gov.uidai.securemdmpoc/.receivers.MyDeviceAdminReceiver');
 
   await QRCode.toFile('./provisioning_qr.png', qrData, {
     width: 1024,
