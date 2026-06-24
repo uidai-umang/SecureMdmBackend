@@ -26,6 +26,10 @@
     "app-reports":    "curl http://localhost:3000/device/apps/report | json_pp",
     "clear-logs":     "curl -s -X DELETE http://localhost:3000/logs/clear | json_pp",
     "python-serve-apk" : "python3 -m http.server 8080 --directory /Users/macuser/Desktop/SecureMdmPocApk",
-    "push-update-device" : "node scripts/push_update_device.js"
+    "push-update-device" : "node scripts/push_update_device.js",
+    "block-bluetooth-all":     "curl -s -X POST http://localhost:3000/device/all/block-bluetooth | json_pp",
+    "unblock-bluetooth-all":   "curl -s -X POST http://localhost:3000/device/all/unblock-bluetooth | json_pp",
+    "block-bluetooth":         "node scripts/block_bluetooth.js",
+    "unblock-bluetooth":       "node scripts/unblock_bluetooth.js"
   }
 }
