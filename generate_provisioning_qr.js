@@ -14,10 +14,10 @@ const provisioningData = {
     EXPECTED_CHECKSUM,
 
   "android.app.extra.PROVISIONING_WIFI_SSID":
-    "Airtel-MyWiFi-PQR-C100-C38E",
+    "Airtel-MyWiFi-PQR-C100-C352",
 
   "android.app.extra.PROVISIONING_WIFI_PASSWORD":
-    "25250912",
+    "87966629",
 
   "android.app.extra.PROVISIONING_WIFI_SECURITY_TYPE":
     "WPA",
@@ -34,7 +34,7 @@ async function main() {
   console.log('Local IP  :', LOCAL_IP);
   console.log('APK URL   :', APK_URL);
   console.log('Checksum  :', EXPECTED_CHECKSUM);
-  console.log('WiFi      : Airtel-MyWiFi-PQR-C100-C38E');
+  console.log('WiFi      : Airtel-MyWiFi-PQR-C100-C352 / WPA / 87966629');
   console.log('Component : gov.uidai.securemdmpoc/.receivers.MyDeviceAdminReceiver');
 
   await QRCode.toFile('./provisioning_qr.png', qrData, {
