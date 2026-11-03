@@ -1,6 +1,6 @@
 const { getApiClient } = require('../../lib/auth');
 
-const OLD_ENTERPRISE_ID = 'enterprises/LC00j1tjmy';
+const OLD_ENTERPRISE_ID = process.env.OLD_ENTERPRISE_ID;
 
 async function main() {
   const api = await getApiClient();

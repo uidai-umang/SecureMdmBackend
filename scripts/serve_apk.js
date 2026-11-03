@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { LOCAL_IP } = require('../config/constants');
 
-const PORT = 8080;
-const APK_PATH = '/Users/macuser/Desktop/PocAppHost/app-release.apk';
+const PORT = process.env.APK_SERVE_PORT;
+const APK_PATH = process.env.SERVE_APK_PATH;
 
 const server = http.createServer((req, res) => {
   console.log(`${req.method} ${req.url} from ${req.socket.remoteAddress}`);

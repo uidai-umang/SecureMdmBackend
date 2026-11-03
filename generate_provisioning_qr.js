@@ -1,11 +1,11 @@
 const QRCode = require('qrcode');
 const { LOCAL_IP, DOWNLOAD_URL, EXPECTED_CHECKSUM } = require('./config/constants');
 
-const APK_URL = `http://${LOCAL_IP}:8080/app-release.apk`;
+const APK_URL = `http://${LOCAL_IP}:${process.env.APK_SERVE_PORT}/app-release.apk`;
 
 const provisioningData = {
   "android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME":
-    "gov.uidai.securemdmpoc/.receivers.MyDeviceAdminReceiver",
+    process.env.DEVICE_ADMIN_COMPONENT,
 
   "android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION":
     APK_URL,
@@ -14,13 +14,13 @@ const provisioningData = {
     EXPECTED_CHECKSUM,
 
   "android.app.extra.PROVISIONING_WIFI_SSID":
-    "Airtel-MyWiFi-PQR-C100-C352",
+    process.env.WIFI_SSID,
 
   "android.app.extra.PROVISIONING_WIFI_PASSWORD":
-    "87966629",
+    process.env.WIFI_PASSWORD,
 
   "android.app.extra.PROVISIONING_WIFI_SECURITY_TYPE":
-    "WPA",
+    process.env.WIFI_SECURITY_TYPE,
 
   "android.app.extra.PROVISIONING_SKIP_ENCRYPTION": false,
 

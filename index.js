@@ -1,7 +1,7 @@
 const app = require('./app');
 const { LOCAL_IP } = require('./config/constants');
 
-const PORT = 3000;
+const PORT = process.env.SERVER_PORT;
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`\nAMAPI Backend running on http://${LOCAL_IP}:${PORT}`);

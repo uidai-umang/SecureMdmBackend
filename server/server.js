@@ -19,7 +19,7 @@ app.use('/', require('../routes/logs'));
 
 app.use(require('../middleware/errorHandler'));
 
-const PORT = 3000;
+const PORT = process.env.SERVER_PORT;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`\nAMAPI Backend running on http://${LOCAL_IP}:${PORT}`);
   console.log(`Local IP : ${LOCAL_IP}`);

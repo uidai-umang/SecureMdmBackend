@@ -7,8 +7,8 @@ async function main() {
 
   const enterprise = await api.enterprises.create({
     projectId: PROJECT_ID,
-    signupUrlName: 'signupUrls/C9f630acf3134b50f',
-    enterpriseToken: 'EAHp-VebOUF340XpssBgMmmz_RXuOVsGieYmukccbiUIs5j4lzgB8lW-il-ZCpryvs5agGh4H3E_fULdtuRqMag53vsVMmJkBsbS9qQdsqTPrw1Hw_pEZZQc',
+    signupUrlName: process.env.SIGNUP_URL_NAME,
+    enterpriseToken: process.env.ENTERPRISE_TOKEN,
     requestBody: { name: 'SecureMDMPOC' }
   });
 

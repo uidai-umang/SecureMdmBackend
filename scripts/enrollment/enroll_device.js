@@ -9,8 +9,8 @@ async function main() {
     parent: ENTERPRISE_ID,
     requestBody: {
       policyName: `${ENTERPRISE_ID}/policies/${POLICY_NAME}`,
-      duration: '604800s',
-      additionalData: 'poc-device-1'
+      duration: process.env.ENROLLMENT_TOKEN_DURATION,
+      additionalData: process.env.ENROLLMENT_ADDITIONAL_DATA
     }
   });
 

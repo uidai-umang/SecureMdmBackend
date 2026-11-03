@@ -4,7 +4,7 @@ let initialized = false;
 
 function initFirebase() {
   if (initialized) return;
-  const serviceAccount = require('../service_accounts/firebase-service-account.json');
+  const serviceAccount = require(process.env.FIREBASE_KEY_FILE);
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
   });
@@ -30,7 +30,7 @@ function logFcmSent(target, data, messageId) {
 
 async function sendToAll(data) {
   const response = await getMessaging().send({
-    topic: 'all-devices',
+    topic: process.env.FCM_TOPIC,
     data,
     android: {
       priority: 'high'
@@ -42,7 +42,7 @@ async function sendToAll(data) {
 
 async function sendToDevice(deviceName, data) {
   const response = await getMessaging().send({
-    topic: 'all-devices',
+    topic: process.env.FCM_TOPIC,
     data: { ...data, targetDevice: deviceName },
     android: {
       priority: 'high'
