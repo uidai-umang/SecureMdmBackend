@@ -1,7 +1,7 @@
 const { execSync } = require('child_process');
 const { LOCAL_IP } = require('../config/constants');
 
-const APK_PATH = '/Users/macuser/AndroidStudioProjects/SecureMdmPoc/app/build/outputs/apk/release/app-release.apk';
+const APK_PATH = process.env.DEPLOY_APK_PATH;
 
 function run(cmd) {
   return execSync(cmd, { encoding: 'utf8' });

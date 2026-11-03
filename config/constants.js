@@ -1,12 +1,13 @@
+require('dotenv').config();
 const os = require('os');
 
-const ENTERPRISE_ID = 'enterprises/LC0427lp1p';
-const POLICY_NAME   = 'kiosk-poc-policy';
-const PROJECT_ID    = 'securemdmpoc';
-const KEY_FILE      = './service_accounts/service-account.json';
+const ENTERPRISE_ID = process.env.ENTERPRISE_ID;
+const POLICY_NAME   = process.env.POLICY_NAME;
+const PROJECT_ID    = process.env.PROJECT_ID;
+const KEY_FILE      = process.env.KEY_FILE;
 const SCOPES        = ['https://www.googleapis.com/auth/androidmanagement'];
-const DATA_DIR      = './data';
-const EXPECTED_CHECKSUM = 'd9yvrEHWHOEFPAZfVieAb-9jdmL_EleeCTjat6jOPrM';
+const DATA_DIR      = process.env.DATA_DIR;
+const EXPECTED_CHECKSUM = process.env.EXPECTED_CHECKSUM;
 
 // Auto-detect local IP — no manual update needed
 function getLocalIp() {

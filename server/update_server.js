@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -7,13 +8,13 @@ const crypto = require('crypto');
 const app = express();
 app.use(express.json());
 
-const PORT = 4000;
+const PORT = process.env.UPDATE_SERVER_PORT;
 
 // ── Config ───────────────────────────────────────────────
 
-const APKSIGNER_PATH = '/Users/macuser/Library/Android/sdk/build-tools/36.1.0/apksigner';
-const AAPT_PATH = '/Users/macuser/Library/Android/sdk/build-tools/36.1.0/aapt';
-const APK_SERVE_DIR = '/Users/macuser/Desktop/SecureMdmPocApk';
+const APKSIGNER_PATH = process.env.APKSIGNER_PATH;
+const AAPT_PATH = process.env.AAPT_PATH;
+const APK_SERVE_DIR = process.env.APK_SERVE_DIR;
 const APK_FILE = path.join(APK_SERVE_DIR, 'app-release.apk');
 const META_FILE = path.join(APK_SERVE_DIR, 'update-meta.json');
 const DOWNLOAD_URL = require('../config/constants').DOWNLOAD_URL;
